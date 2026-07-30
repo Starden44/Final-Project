@@ -53,7 +53,7 @@
      <string>Please enter the name of the student</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTextEdit" name="student_name_text">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -63,7 +63,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_2">
+   <widget class="QTextEdit" name="student_score_text">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -86,7 +86,7 @@
      <string>Add</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="description_label">
     <property name="geometry">
      <rect>
       <x>80</x>
