@@ -55,7 +55,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Final Project"))
         self.submit_button.setText(_translate("MainWindow", "Submit"))
-        self.grade_label.setText(_translate("MainWindow", "Student (name)\'s Score"))
+        self.grade_label.setText(_translate("MainWindow", "Student\'s Score"))
         self.student_number_label.setText(_translate("MainWindow", "Please enter the name of the student"))
         self.add_button.setText(_translate("MainWindow", "Add"))
         self.description_label.setText(_translate("MainWindow", "When finished with all students, please press submit for results."))

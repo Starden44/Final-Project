@@ -9,7 +9,17 @@ class Logic(QMainWindow, Ui_MainWindow):
 
         self.add_button.clicked.connect(lambda: self.add())
         self.submit_button.clicked.connect(lambda: self.submit())
+        self.student_name_text.textChanged.connect(self.update_score_label)
         self.csv_writer("Name", "Score", "Grade")
+
+    def update_score_label(self) -> None:
+        '''Updates the displayed score label with the current student name input.'''
+        name = self.student_name_text.toPlainText().strip()
+        
+        if name and name.isalpha():
+            self.grade_label.setText(f"{name}'s Score")
+        else:
+            self.grade_label.setText("Student's Score")
 
     def add(self) -> None:
         '''Adds a student to the internal dictionary after validating the name and score.'''
