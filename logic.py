@@ -8,6 +8,7 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.__students = {}
 
         self.add_button.clicked.connect(lambda: self.add())
+        self.submit_button.clicked.connect(lambda: self.submit())
 
     def add(self):
         name = self.student_name_text.toPlainText()
@@ -60,6 +61,11 @@ class Logic(QMainWindow, Ui_MainWindow):
                 grade = "F"
 
             self.csv_writer(name, score, grade)
+
+        self.description_label.setText("All students submitted successfully")
+        self.__students.clear()
+        self.student_name_text.clear()
+        self.student_score_text.clear()
         
 
     def def_grades_dict(self):
@@ -72,5 +78,6 @@ class Logic(QMainWindow, Ui_MainWindow):
         }
         return grades
     
-    def csv_writer(self):
-        pass
+    def csv_writer(self, name, score, grade):
+        with open("data.csv", "a+", newline="") as file:
+            file.write(f"{name},{score},{grade}\n")
