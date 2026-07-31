@@ -13,6 +13,8 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(509, 319)
+        MainWindow.setMinimumSize(QtCore.QSize(509, 319))
+        MainWindow.setMaximumSize(QtCore.QSize(509, 319))
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.submit_button = QtWidgets.QPushButton(parent=self.centralwidget)
@@ -22,7 +24,7 @@ class Ui_MainWindow(object):
         self.grade_label.setGeometry(QtCore.QRect(50, 70, 121, 81))
         self.grade_label.setObjectName("grade_label")
         self.student_number_label = QtWidgets.QLabel(parent=self.centralwidget)
-        self.student_number_label.setGeometry(QtCore.QRect(30, 20, 191, 41))
+        self.student_number_label.setGeometry(QtCore.QRect(30, 20, 201, 41))
         self.student_number_label.setObjectName("student_number_label")
         self.student_name_text = QtWidgets.QTextEdit(parent=self.centralwidget)
         self.student_name_text.setGeometry(QtCore.QRect(280, 30, 121, 31))

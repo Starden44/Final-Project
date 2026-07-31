@@ -9,40 +9,58 @@ class Logic(QMainWindow, Ui_MainWindow):
 
         self.add_button.clicked.connect(lambda: self.add())
         self.submit_button.clicked.connect(lambda: self.submit())
+        self.csv_writer("Name", "Score", "Grade")
 
-    def add(self):
+    def add(self) -> None:
+        '''Adds a student to the internal dictionary after validating the name and score.'''
         name = self.student_name_text.toPlainText()
         score = self.student_score_text.toPlainText()
 
-        if name.isalpha() == False:
-            self.description_label.setText("Name cannot contain numbers")
-            return
-
-        elif name == "":
-            self.description_label.setText("Name cannot be empty")
+        if not self.name_validator(name):
             return
         
-        elif score == "":
-            self.description_label.setText("Score cannot be empty")
+        if not self.score_validator(score):
             return
-        try:
-            score = float(score)
-            if score < 0 or score > 100:
-                self.description_label.setText("Score must be between 0 and 100")
-                return
-            
-        except ValueError:
-            self.description_label.setText("Score must be a number")
-            return
-        
 
-        self.__students[name] = score
+        score = float(score)
+        if name in self.__students:
+            duplicate_counter = 2
+            self.__students[name + str(duplicate_counter)] = score
+            duplicate_counter += 1
+        else:
+            self.__students[name] = score
 
         self.student_name_text.clear()
         self.student_score_text.clear()
         self.description_label.setText("Student added successfully")
 
-    def submit(self):
+    def name_validator(self, name) -> bool:
+        '''Validates the student's name ensuring it is non-empty and contains only alphabetic characters.'''
+        if name.isalpha() == False:
+            self.description_label.setText("Name cannot contain numbers")
+            return False
+        elif name == "":
+            self.description_label.setText("Name cannot be empty")
+            return False
+        return True
+
+    def score_validator(self, score) -> bool:
+        '''Validates the student's score ensuring it is non-empty, numeric, and within the range 0-100.'''
+        if score == "":
+            self.description_label.setText("Score cannot be empty")
+            return False
+        try:
+            score = float(score)
+            if score < 0 or score > 100:
+                self.description_label.setText("Score must be between 0 and 100")
+                return False
+        except ValueError:
+            self.description_label.setText("Score must be a number")
+            return False
+        return True
+    
+    def submit(self) -> None:
+        '''Submits all students by calculating their grades and writing them to a CSV file.'''
         if not self.__students:
             self.description_label.setText("No students to submit")
             return
@@ -68,7 +86,8 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.student_score_text.clear()
         
 
-    def def_grades_dict(self):
+    def def_grades_dict(self) -> dict:
+        '''Returns the grade thresholds based on the maximum score among the students.'''
         max_value = max(self.__students.values())
         grades = {
             "A": (max_value - 10),
@@ -78,6 +97,7 @@ class Logic(QMainWindow, Ui_MainWindow):
         }
         return grades
     
-    def csv_writer(self, name, score, grade):
+    def csv_writer(self, name, score, grade) -> None:
+        '''Writes a student's name, score, and grade to the CSV file.'''
         with open("data.csv", "a+", newline="") as file:
             file.write(f"{name},{score},{grade}\n")
